@@ -3,48 +3,30 @@ from tkinter.filedialog import *
 from guizero import *
 from tkinter import filedialog
 import keyboard
-# Variables, lists and tuples
-filetypes = ['.lst', '.lvl', '.sav', '.txt']
-advConfigList_Fork = []
-config_list = []
-config_ad = []
-Settings_Window = ()
-Options_Text = ()
-checkbox = ()
-windA = ()
-listLan = ()
-
+themeType = 0
 # Opens .TXT, .SAV (only loger studios compiled savs and .LST)
-def open_file():
-    global filetypes, input_box
+def openFile():
+    global inputBox
     Tk().withdraw()   # we don't want a full GUI, so keep the root window from appearing
-    fileContent = askopenfilename(defaultextension='lst', initialdir='projects')  # show an "Open" dialog box and return the path to the selected file
+    fileContent = askopenfilename(defaultextension='lst', initialdir='projects', title="Open - loger file editor")  # show an "Open" dialog box and return the path to the selected file
     # Open the file in read mode
     if fileContent != '':
-
-        file = open(fileContent, "r")
-
-        # Read the entire content of the file
-        content = file.read()
-        input_box.value = content
+        with open(fileContent, 'r') as f:
+            # Read the entire content of the file
+            content = f.read()
+        inputBox.value = content
         # Close the file
-        file.close()
     else:
         app.info("loger File editor", "Action Canceled")
 # Saves .LST
-def save_as():
-    global input_box
+def saveAs():
     files = [('loger script Text Document', '*.lst'),
              ('Text Document', '*.txt'),
-             ('All Files', '*.*')
-             ]
-    file = filedialog.asksaveasfilename(
-        filetypes=files,
-        defaultextension=".lst", initialdir='projects')
+             ('All Files', '*.*')]
+    file = filedialog.asksaveasfilename(filetypes=files,defaultextension=".lst", initialdir='projects', title="Save - loger file editor")
     if file:  # user selected file
-        fob = open(file,'w')
-        fob.write(input_box.value)
-        fob.close()
+        with open(file, 'w') as f:
+            f.write(inputBox.value)
     else:  # user cancel the file browser window
         app.info("loger File editor", "Action Canceled")
     fd = open(file, "r")
@@ -56,19 +38,17 @@ def save_as():
     for i in range(len(s)):
         fd.write(s[i])
     fd.close()
-def save_as_txt():
-    global input_box
+def saveAsTxt():
+    global inputBox
     files = [('Text Document', '*.txt'),
              ('loger script Text Document', '*.lst'),
              ('All Files', '*.*')
              ]
     file = filedialog.asksaveasfilename(
-        filetypes=files,
-        defaultextension=".txt", initialdir='projects')
+        filetypes=files, defaultextension=".txt", initialdir='projects', title="Save As - loger file editor")
     if file:  # user selected file
-        fob = open(file, 'w')
-        fob.write(input_box.value)
-        fob.close()
+        with open(file, 'w') as f:
+            f.write(inputBox.value)
     else:  # user cancel the file browser window
         app.info("loger File editor", "Action Canceled")
     fd = open(file, "r")
@@ -80,13 +60,11 @@ def save_as_txt():
     for i in range(len(s)):
         fd.write(s[i])
     fd.close()
-def newfile():
+def newFile():
     files = [('All Files', '*.*'),
              ('loger script Text Document', '*.lst'),
              ('Text Document', '*.txt')]
-    file = filedialog.asksaveasfilename(
-        filetypes=files,
-        defaultextension=".txt", initialdir='projects', title="New file")
+    file = filedialog.asksaveasfilename(filetypes=files,defaultextension=".lst", initialdir='projects', title="New file - loger file editor")
     if file:  # user selected file
         fob = open(file,'x')
         fob.close()
@@ -97,96 +75,109 @@ def close():
     if closeT:
         app.disable()
         app.destroy()
-    else:
-        pass
-
-def font_color():
-    input_box.text_color = app.select_color(color='Black')
-
-# Disables the app lol
-def cooked():
-    app.disable()
+def fontColor():
+    inputBox.text_color = app.select_color(color='Black')
 # It's not done yet 😤
-def coming_soon():
+def comingSoon():
     app.info("loger File editor", "This feature is still a work in progress.")
-def jump_scare():
-    spook = app.yesno("Warning", "Warning: This is a very scary photo. Not for the faint of heart")
-    if spook:
-        Scare = Window(app, title="Scary - loger File editor", layout="center")
-        Picture(Scare, image='assets/spooky.png')
-    else:
-        app.info("Warning", "That's fair.")
 # ----------------------------------------------------------
-def ad_config():
-    global config_list, config_ad, windA, listLan, advConfigList_Fork
-    config_ad = Window(app, title="Settings - loger File editor", width=400, height=300, layout="auto")
-    Text(config_ad, text="Select an option.")
-    config_list = ListBox(config_ad, width=390, height=230, command=adv_config, items=[
-        "Theme options (beta)"
-    ])
-    # Update to length of config list
-    windA = Window(config_ad, visible=False, width=390, height=330)
-    listLan = 1
-    listCall = 0
-    advConfigList_Fork = []
-    for i in range(listLan):
-        advConfigList_Fork.append(config_list.items[listCall])
-        listCall = listCall + 1
-    # Config writing
+def adConfig():
+    configAd = Window(app, title="Settings - loger File editor", width=400, height=300, layout="grid")
     # Config gui for advanced menu
     def formatSel():
-        input_box.text_bold = bold.value
-        input_box.text_italic = italix.value
-        input_box.text_underline = underline.value
-        input_box.text_size = sizeSel.value
-        input_box.font = font.value
+        inputBox.text_bold = bold.value
+        inputBox.text_italic = italix.value
+        inputBox.text_underline = underline.value
+        inputBox.text_size = sizeSel.value
+        inputBox.font = font.value
     def resetFont():
         bold.value = 0
         italix.value = 0
         underline.value = 0
         sizeSel.value = 11
-        input_box.text_color = None
+        if themeType == 0:
+            inputBox.text_color = None
+        elif themeType == 1:
+            inputBox.text_color = "White"
         font.value = "Courier New"
-    # Wind A:
-    formatLabel = TitleBox(windA, text='Font options')
+        formatSel()
+    def theme():
+        global themeType
+        if theme.value == "Default Light":
+            inputBox.text_color = None
+            app.bg = None
+            app.text_color = None
+            themeType = 0
+        elif theme.value == "Midnight":
+            # open the sample file used
+            file = open('themes/midnight.theme')
+            # read the content of the file opened
+            content = file.readlines()
+            inputBox.text_color = content[0]
+            app.bg = content[1]
+            app.text_color = content[2]
+            themeType = int(content[3])
+            inputBox.bg = content[4]
+        elif theme.value == "Default Dark":
+            # open the sample file used
+            file = open('themes/defaultDark.theme')
+            # read the content of the file opened
+            content = file.readlines()
+            inputBox.text_color = content[0]
+            app.bg = content[1]
+            app.text_color = content[2]
+            themeType = int(content[3])
+            inputBox.bg = content[4]
+        elif theme.value == "Cool light":
+            # open the sample file used
+            file = open('themes/blueLight.theme')
+            # read the content of the file opened
+            content = file.readlines()
+            inputBox.text_color = content[0]
+            app.bg = content[1]
+            app.text_color = content[2]
+            themeType = int(content[3])
+            inputBox.bg = content[4]
+    # Settings Wind:
+    formatLabel = TitleBox(configAd, text='Font options', grid=[1,1])  # Font options
     bold = CheckBox(formatLabel, text='Bold', command=formatSel)
     italix = CheckBox(formatLabel, text='Italix', command=formatSel)
     underline = CheckBox(formatLabel, text="Underline", command=formatSel)
-    PushButton(formatLabel, text='Font color', command=font_color)  # Font Color
+    PushButton(formatLabel, text='Font color', command=fontColor)  # Font Color
     Text(formatLabel, text="--Font size--")
     sizeSel = Slider(formatLabel, start=9, end=16, command=formatSel)
+    sizeSel.value = 11
     Text(formatLabel, text="--Font--")
     font = Combo(formatLabel, command=formatSel, options=["Courier New", "Cascadia Code", "Symbol", "Times New Roman", "Webdings", "Wingdings", "Yu Gothic"])
     PushButton(formatLabel, text="Reset", command=resetFont)
+    themeLabel = TitleBox(configAd, text="Theme options", grid=[2,1])  # Theme Options
+    Text(themeLabel, text="--Theme--")
+    theme = Combo(themeLabel, command=theme, options=["Default Light", "Default Dark",
+    "Midnight", "Cool light"])
 
-def adv_config(value_of_input):
-    # Gui for config
-    config_list.value = value_of_input
-    if value_of_input == advConfigList_Fork[0]:
-        windA.title = value_of_input + " - loger File editor"
-        windA.visible = True
 def textWrap():
-    if input_box.wrap:
-        input_box.wrap = False
+    if inputBox.wrap:
+        inputBox.wrap = False
     else:
-        input_box.wrap = True
+        inputBox.wrap = True
 # Main Gui code
 app = App(title="loger File editor", layout="center", width=800, height=600)
-input_box = TextBox(app, width="fill", height="fill", multiline=True, scrollbar=True)
-text = Text(app, text="loger File Editor")
+inputBox = TextBox(app, width="fill", height="fill", multiline=True)
+inputBox.text_size = 11
+Text(app, text="loger File Editor")
 menubar = MenuBar(app,
                   toplevel=["File", "Edit", "Tools"],
                   options=[
-                      [ ["New", newfile], ["Open", open_file], ["Save as", save_as], ["Save as TXT", save_as_txt], ["Exit", close] ],  #File
+                      [["New", newFile], ["Open", openFile], ["Save as", saveAs], ["Save as TXT", saveAsTxt], ["Exit", close]],  #File
                       [ ["Toggle text wrap", textWrap] ],  #Edit
-                      [ ["Settings (Beta)", ad_config] ]  #Tools
+                      [["Settings (Beta)", adConfig]]  #Tools
                     ])
 # Hotkeys
-keyboard.add_hotkey('ctrl + alt + t', ad_config)
-keyboard.add_hotkey('ctrl + n', newfile)
-keyboard.add_hotkey('ctrl + o', open_file)
-keyboard.add_hotkey('ctrl + s', save_as)
-keyboard.add_hotkey('ctrl + shift + s', save_as_txt)
+keyboard.add_hotkey('ctrl + alt + t', adConfig)
+keyboard.add_hotkey('ctrl + n', newFile)
+keyboard.add_hotkey('ctrl + o', openFile)
+keyboard.add_hotkey('ctrl + s', saveAs)
+keyboard.add_hotkey('ctrl + shift + s', saveAsTxt)
 app.when_closed = close
 app.icon = "assets/ico.png"
 app.display()
