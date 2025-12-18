@@ -1,0 +1,19 @@
+
+To open the program:
+    &emsp; 1. download and install any version of python 3 between 3.12-3.13.
+    &emsp;2. install the [illium.ttf] font
+    &emsp;3. install guizero to your home dir. 
+    &emsp;4. open [loger_file_editor.py] on the desktop or in a terminal  
+	&emsp; &emsp;a.if a terminal window opens too, check to see if the debug flag is enabled in [runtimeOptions.properties]
+    &emsp;4. your saves are in [projects\]
+
+To modify in any way:
+     &emsp;1. go to the github repo and fork the project.
+     &emsp;a. get coding and make a great mod, who knows it may become part of the project.
+     &emsp;2. include atribution in your credits!
+
+The code is in [gui.py] All depenceies other than python and guizero are included and located in [libraries\]. All themes are in [assets\] along with other images.
+
+**ERRORS** **MAY** **OCCUR** **IN AN** **IDE** **DUE** **TO** **PROJECT** **CONFIG** **OPTIONS**. **FOR** **USE** **OF** **SOFTWARE** **OUTSIDE** **A** **DEV** **ENVIROMENT** **RUN** **WITH** **ABOVE** **INSTRUCTIONS**!
+
+Hopefully it works.
