@@ -8,7 +8,7 @@ To open the program:<br>
 <br>
 To modify in any way:<br>
      &emsp;1. go to the github repo and fork the project.<br>
-     &emp;&emsp;a. get coding and make a great mod, who knows it may become part of the project.<br>
+     &emsp;&emsp;a. get coding and make a great mod, who knows it may become part of the project.<br>
      &emsp;2. include atribution in your credits!<br>
 <br>
 The code is in [gui.py] All depenceies other than python and guizero are included and located in [libraries\]. All themes are in [assets\] along with other images.<br>
