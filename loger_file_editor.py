@@ -1,6 +1,5 @@
 import subprocess
 import os
-os.system("dir/s")
 # open the sample file used
 with open('runtimeOptions.properties') as f:
     # read the content of the file opened
