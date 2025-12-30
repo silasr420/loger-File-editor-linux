@@ -2,9 +2,18 @@
 from tkinter.filedialog import *
 from libraries.guizero import *
 from tkinter import filedialog
-from libraries import keyboard
+#from libraries import keyboard
 import os
 print("finished importing libraries")
+THEME_FILES = {
+    "Blue Paint": "blue_paint.theme",
+    "Bluelight": "blueLight.theme",
+    "Default Dark": "default_dark.theme",
+    "Default Light": "defaultDark.theme",
+    "Defaultdark": "defaultDark.theme",
+    "Hotdog Stand": "hotdog_stand.theme",
+    "Midnight": "midnight.theme",
+}
 themeType = 0
 themesMemContent = ["Default Light"]
 memInt = 0
@@ -121,7 +130,13 @@ def adConfig():
             print("switched theme to: Default Light")
         else:
             # open the theme file selected
-            file = open('assets/themes/' + themeSel.value.lower().strip().replace(" ", "_") + ".theme")
+            filename = THEME_FILES.get(themeSel.value)
+            if not filename:
+                print("Unknown theme:", themeSel.value)
+                return
+
+            file = open("assets/themes/" + filename)
+
             # read the content of the file opened
             content = file.readlines()
             app.bg = content[1]
@@ -162,7 +177,15 @@ def curserPOS():
     curserPOSV.value = "loger File Editor | " + inputBox.cursor_position
 # Main Gui code
 app = App(title="loger File editor", layout="center", width=800, height=600)
+root = app.tk
+
+root.bind("<Control-n>", lambda e: newFile())
+root.bind("<Control-o>", lambda e: openFile())
+root.bind("<Control-s>", lambda e: saveAs())
+root.bind("<Control-q>", lambda e: close())
+
 inputBox = TextBox(app, width="fill", height="fill", multiline=True, command=curserPOS)
+inputBox.tk.bind("<Control-s>", lambda e: saveAs())
 inputBox.text_size = 11
 curserPOSV = Text(app, text="")
 menubar = MenuBar(app,
@@ -174,11 +197,12 @@ menubar = MenuBar(app,
                       [["Settings (Beta)", adConfig]]  #Tools
                     ])
 # Hotkeys
-keyboard.add_hotkey('ctrl + n', newFile)
-keyboard.add_hotkey('ctrl + o', openFile)
-keyboard.add_hotkey('ctrl + s', saveAs)
+#keyboard.add_hotkey('ctrl + n', newFile)
+#keyboard.add_hotkey('ctrl + o', openFile)
+#keyboard.add_hotkey('ctrl + s', saveAs)
 app.when_closed = close
 app.icon = "assets/ico.png"
 curserPOS()
 app.when_clicked = curserPOS
 app.display()
+
