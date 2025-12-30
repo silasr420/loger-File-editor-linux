@@ -1,3 +1,8 @@
+<br>
+**THIS** **PROGRAM** **HAS** **BEEN** **MODIFIED** **FOR** **LINUX** **COMPATIBILITY**<br>
+**ERRORS** **MAY** **OCCUR**!<br>
+<br>
+
 To open the program:<br>
     &emsp;1. download and install any version of python 3 between 3.12-3.13<br>
     &emsp;2. install the [illium.ttf] font<br>
