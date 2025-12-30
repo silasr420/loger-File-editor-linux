@@ -15,11 +15,5 @@ The code is in [gui.py] All depenceies other than python and guizero are include
 <br>
 **ERRORS** **MAY** **OCCUR** **IN AN** **IDE** **DUE** **TO** **PROJECT** **CONFIG** **OPTIONS**. **FOR** **USE** **OF** **SOFTWARE** **OUTSIDE** **A** **DEV** **ENVIROMENT** **RUN** **WITH** **ABOVE** **INSTRUCTIONS**!<br>
 <br>
-
-<br>
-**THIS** **PROGRAM** **HAS** **BEEN** **MODIFIED** **FOR** **LINUX** **COMPATIBILITY**<br>
-**ERRORS** **MAY** **OCCUR**!<br>
-<br>
-
 Hopefully it works.<br>
 <br>
