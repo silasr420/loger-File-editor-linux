@@ -1,8 +1,3 @@
-<br>
-**THIS** **PROGRAM** **HAS** **BEEN** **MODIFIED** **FOR** **LINUX** **COMPATIBILITY**<br>
-**ERRORS** **MAY** **OCCUR**!<br>
-<br>
-
 To open the program:<br>
     &emsp;1. download and install any version of python 3 between 3.12-3.13<br>
     &emsp;2. install the [illium.ttf] font<br>
@@ -20,5 +15,11 @@ The code is in [gui.py] All depenceies other than python and guizero are include
 <br>
 **ERRORS** **MAY** **OCCUR** **IN AN** **IDE** **DUE** **TO** **PROJECT** **CONFIG** **OPTIONS**. **FOR** **USE** **OF** **SOFTWARE** **OUTSIDE** **A** **DEV** **ENVIROMENT** **RUN** **WITH** **ABOVE** **INSTRUCTIONS**!<br>
 <br>
+
+<br>
+**THIS** **PROGRAM** **HAS** **BEEN** **MODIFIED** **FOR** **LINUX** **COMPATIBILITY**<br>
+**ERRORS** **MAY** **OCCUR**!<br>
+<br>
+
 Hopefully it works.<br>
 <br>
