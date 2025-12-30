@@ -6,7 +6,8 @@ with open('runtimeOptions.properties') as f:
     content = f.readlines()
     if content[1] == "debug = 0":
         # Use pythonw to run silently
-        subprocess.Popen(['pythonw', 'gui.py'])
+        subprocess.Popen(['python3', 'gui.py'])
     elif content[1] == "debug = 1":
         print("Opened with terminal.")
         os.startfile('gui.py')
+
